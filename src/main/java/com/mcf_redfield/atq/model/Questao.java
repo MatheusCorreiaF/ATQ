@@ -9,7 +9,7 @@ package com.mcf_redfield.atq.model;
  *
  * @author Usuario
  */
-public class Questao
+public class Questao/*add comentário*/
 {
 
     private int idQuestao;
