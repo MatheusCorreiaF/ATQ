@@ -5,6 +5,8 @@
  */
 package com.mcf_redfield.atq.view;
 
+import com.mcf_redfield.atq.fabrica.CategoriaDAO;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -45,22 +47,29 @@ public class MainFrame extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         jLabelQNome = new javax.swing.JLabel();
         jLabelQQtde = new javax.swing.JLabel();
+        jDialogInserirCategoria = new javax.swing.JDialog();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuQuestao = new javax.swing.JMenu();
-        jMenuIQListar = new javax.swing.JMenuItem();
         jMenuIQInserir = new javax.swing.JMenuItem();
+        jMenuIQListar = new javax.swing.JMenuItem();
         jMenuIQEditar = new javax.swing.JMenuItem();
         jMenuIQExcluir = new javax.swing.JMenuItem();
         jMenuCat = new javax.swing.JMenu();
-        jMenuICExcluir = new javax.swing.JMenuItem();
-        jMenuICEditar = new javax.swing.JMenuItem();
         jMenuICInserir = new javax.swing.JMenuItem();
         jMenuICListar = new javax.swing.JMenuItem();
+        jMenuICExcluir = new javax.swing.JMenuItem();
         jMenuSair = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
         jDialogCategoria.setModal(true);
+        jDialogCategoria.setResizable(false);
+        jDialogCategoria.setSize(new java.awt.Dimension(420, 360));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Categoria"));
         jPanel1.setOpaque(false);
@@ -167,7 +176,7 @@ public class MainFrame extends javax.swing.JFrame
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 3, Short.MAX_VALUE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(47, 47, 47)
@@ -200,6 +209,63 @@ public class MainFrame extends javax.swing.JFrame
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jDialogInserirCategoria.setModal(true);
+        jDialogInserirCategoria.setSize(new java.awt.Dimension(335, 86));
+
+        jLabel3.setText("Nome:");
+
+        jButton1.setText("Salvar");
+
+        jButton2.setText("Cancelar");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextField1))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jDialogInserirCategoriaLayout = new javax.swing.GroupLayout(jDialogInserirCategoria.getContentPane());
+        jDialogInserirCategoria.getContentPane().setLayout(jDialogInserirCategoriaLayout);
+        jDialogInserirCategoriaLayout.setHorizontalGroup(
+            jDialogInserirCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogInserirCategoriaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jDialogInserirCategoriaLayout.setVerticalGroup(
+            jDialogInserirCategoriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jDialogInserirCategoriaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Tela Principal"); // NOI18N
 
@@ -217,20 +283,13 @@ public class MainFrame extends javax.swing.JFrame
         jMenuQuestao.setMnemonic('q');
         jMenuQuestao.setText("Questão");
 
-        jMenuIQListar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
-        jMenuIQListar.setText("Listar");
-        jMenuIQListar.addActionListener(new java.awt.event.ActionListener()
-        {
-            public void actionPerformed(java.awt.event.ActionEvent evt)
-            {
-                jMenuIQListarActionPerformed(evt);
-            }
-        });
-        jMenuQuestao.add(jMenuIQListar);
-
         jMenuIQInserir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         jMenuIQInserir.setText("Inserir");
         jMenuQuestao.add(jMenuIQInserir);
+
+        jMenuIQListar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
+        jMenuIQListar.setText("Listar");
+        jMenuQuestao.add(jMenuIQListar);
 
         jMenuIQEditar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
         jMenuIQEditar.setText("Editar");
@@ -245,21 +304,31 @@ public class MainFrame extends javax.swing.JFrame
         jMenuCat.setMnemonic('c');
         jMenuCat.setText("Categoria");
 
-        jMenuICExcluir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
-        jMenuICExcluir.setText("Excluir");
-        jMenuCat.add(jMenuICExcluir);
-
-        jMenuICEditar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.ALT_MASK));
-        jMenuICEditar.setText("Editar");
-        jMenuCat.add(jMenuICEditar);
-
         jMenuICInserir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.ALT_MASK));
         jMenuICInserir.setText("Inserir");
+        jMenuICInserir.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuICInserirActionPerformed(evt);
+            }
+        });
         jMenuCat.add(jMenuICInserir);
 
         jMenuICListar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.ALT_MASK));
         jMenuICListar.setText("Listar");
+        jMenuICListar.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jMenuICListarActionPerformed(evt);
+            }
+        });
         jMenuCat.add(jMenuICListar);
+
+        jMenuICExcluir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.ALT_MASK));
+        jMenuICExcluir.setText("Excluir");
+        jMenuCat.add(jMenuICExcluir);
 
         jMenuBar1.add(jMenuCat);
 
@@ -311,15 +380,29 @@ public class MainFrame extends javax.swing.JFrame
         this.dispose();// TODO add your handling code here:
     }//GEN-LAST:event_jBtnCNovoActionPerformed
 
-    private void jMenuIQListarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuIQListarActionPerformed
-    {//GEN-HEADEREND:event_jMenuIQListarActionPerformed
-        jDialogCategoria.setVisible(true);
-    }//GEN-LAST:event_jMenuIQListarActionPerformed
-
     private void jBtnCExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCExcluirActionPerformed
     {//GEN-HEADEREND:event_jBtnCExcluirActionPerformed
-        // TODO add your handling code here:
+            CategoriaDAO catDAO = new CategoriaDAO();
+            List listaCat = catDAO.listaCategoria();
+            String categoriass = "";
+            for(int i=0; i<listaCat.size();i++)
+            {
+                categoriass = categoriass + listaCat.get(i).toString()+"\n";
+            }
+            JOptionPane.showMessageDialog(rootPane, categoriass);
     }//GEN-LAST:event_jBtnCExcluirActionPerformed
+
+    private void jMenuICListarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuICListarActionPerformed
+    {//GEN-HEADEREND:event_jMenuICListarActionPerformed
+        jDialogCategoria.setLocationRelativeTo(null);
+        jDialogCategoria.setVisible(true);
+    }//GEN-LAST:event_jMenuICListarActionPerformed
+
+    private void jMenuICInserirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuICInserirActionPerformed
+    {//GEN-HEADEREND:event_jMenuICInserirActionPerformed
+        jDialogCategoria.setVisible(true);
+        //jDialogInserirCategoria.setVisible(true);
+    }//GEN-LAST:event_jMenuICInserirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -362,15 +445,18 @@ public class MainFrame extends javax.swing.JFrame
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCExcluir;
     private javax.swing.JButton jBtnCNovo;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialogCategoria;
+    private javax.swing.JDialog jDialogInserirCategoria;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabelQNome;
     private javax.swing.JLabel jLabelQQtde;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCat;
-    private javax.swing.JMenuItem jMenuICEditar;
     private javax.swing.JMenuItem jMenuICExcluir;
     private javax.swing.JMenuItem jMenuICInserir;
     private javax.swing.JMenuItem jMenuICListar;
@@ -383,7 +469,9 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JMenu jMenuSair;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableCategoria;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

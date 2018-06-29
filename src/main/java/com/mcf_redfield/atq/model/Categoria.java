@@ -21,6 +21,11 @@ public class Categoria
         this.categoria = categoria;
     }
 
+    public Categoria()
+    {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int getIdCat()
     {
         return idCat;
