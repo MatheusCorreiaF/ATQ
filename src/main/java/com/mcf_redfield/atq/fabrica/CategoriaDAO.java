@@ -58,7 +58,6 @@ public class CategoriaDAO
                     Categoria cat = new Categoria();
                     cat.setIdCat(rs.getInt("id"));
                     cat.setCategoria(rs.getString("categoria"));
-
                     listaCat.add(cat);
                 }
             }

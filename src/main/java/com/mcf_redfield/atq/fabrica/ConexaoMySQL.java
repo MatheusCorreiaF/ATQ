@@ -22,7 +22,7 @@ public class ConexaoMySQL
             Class.forName(driverName);
 
             //OBSERVAÇÃO: na minha máquina, o Mysql está operando pela porta 3307
-            String serverName = "127.0.0.1:330~6";
+            String serverName = "127.0.0.1:3307";
 
             //nesta linha estar� o nome do seu banco de dados. Olhe no workbench
             //o nome do banco. Caso voce tenha criado o modelo no workbench e n�o
