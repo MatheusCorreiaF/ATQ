@@ -7,6 +7,7 @@ package com.mcf_redfield.atq.view;
 
 import com.mcf_redfield.atq.fabrica.CategoriaDAO;
 import java.util.List;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,8 @@ public class MainFrame extends javax.swing.JFrame
     {
         initComponents();
         this.setLocationRelativeTo(null);
+        jDialogCategoria.setLocationRelativeTo(null);
+        jDialogInserirCategoria.setLocationRelativeTo(null);
     }
 
     /**
@@ -48,12 +51,14 @@ public class MainFrame extends javax.swing.JFrame
         jLabel2 = new javax.swing.JLabel();
         jLabelQNome = new javax.swing.JLabel();
         jLabelQQtde = new javax.swing.JLabel();
+        System.out.println("»»»préCriação");
         jDialogInserirCategoria = new javax.swing.JDialog();
+        System.out.println("»»»pósCriação");
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jTFCIcat = new javax.swing.JTextField();
+        jBtnCIcancel = new javax.swing.JButton();
+        jBtnCIsalvar = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenuQuestao = new javax.swing.JMenu();
@@ -217,21 +222,66 @@ public class MainFrame extends javax.swing.JFrame
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
+        jDialogInserirCategoria.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogInserirCategoria.setTitle("Nova Categoria");
         jDialogInserirCategoria.setModal(true);
-        jDialogInserirCategoria.setSize(new java.awt.Dimension(335, 86));
+        jDialogInserirCategoria.setResizable(false);
+        jDialogInserirCategoria.setSize(new java.awt.Dimension(335, 116));
+        jDialogInserirCategoria.addFocusListener(new java.awt.event.FocusAdapter()
+        {
+            public void focusGained(java.awt.event.FocusEvent evt)
+            {
+                jDialogInserirCategoriaFocusGained(evt);
+            }
+        });
+        jDialogInserirCategoria.addComponentListener(new java.awt.event.ComponentAdapter()
+        {
+            public void componentShown(java.awt.event.ComponentEvent evt)
+            {
+                jDialogInserirCategoriaComponentShown(evt);
+            }
+        });
+        jDialogInserirCategoria.addWindowStateListener(new java.awt.event.WindowStateListener()
+        {
+            public void windowStateChanged(java.awt.event.WindowEvent evt)
+            {
+                jDialogInserirCategoriaWindowStateChanged(evt);
+            }
+        });
+        jDialogInserirCategoria.addWindowFocusListener(new java.awt.event.WindowFocusListener()
+        {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt)
+            {
+                jDialogInserirCategoriaWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt)
+            {
+            }
+        });
         jDialogInserirCategoria.addWindowListener(new java.awt.event.WindowAdapter()
         {
             public void windowActivated(java.awt.event.WindowEvent evt)
             {
                 jDialogInserirCategoriaWindowActivated(evt);
             }
+            public void windowOpened(java.awt.event.WindowEvent evt)
+            {
+                jDialogInserirCategoriaWindowOpened(evt);
+            }
         });
 
-        jLabel3.setText("Nome:");
+        jLabel3.setText("Categoria:");
 
-        jButton1.setText("Salvar");
+        jBtnCIcancel.setText("Cancelar");
+        jBtnCIcancel.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                jBtnCIcancelActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        jBtnCIsalvar.setText("Salvar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -242,12 +292,12 @@ public class MainFrame extends javax.swing.JFrame
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1))
+                        .addComponent(jTFCIcat))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jBtnCIcancel, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jBtnCIsalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -256,13 +306,15 @@ public class MainFrame extends javax.swing.JFrame
                 .addGap(6, 6, 6)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTFCIcat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(jBtnCIcancel)
+                    .addComponent(jBtnCIsalvar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        System.out.println("»»»préPopulação");
 
         javax.swing.GroupLayout jDialogInserirCategoriaLayout = new javax.swing.GroupLayout(jDialogInserirCategoria.getContentPane());
         jDialogInserirCategoria.getContentPane().setLayout(jDialogInserirCategoriaLayout);
@@ -280,6 +332,10 @@ public class MainFrame extends javax.swing.JFrame
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        System.out.println("»»»pósPopulação");
+
+        System.out.println("»»»afterAllSet");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setName("Tela Principal"); // NOI18N
@@ -391,9 +447,7 @@ public class MainFrame extends javax.swing.JFrame
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 315, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jDesktopPane1))
         );
 
         pack();
@@ -406,7 +460,7 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jBtnCNovoActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCNovoActionPerformed
     {//GEN-HEADEREND:event_jBtnCNovoActionPerformed
-        this.dispose();// TODO add your handling code here:
+        jDialogInserirCategoria.setVisible(true);
     }//GEN-LAST:event_jBtnCNovoActionPerformed
 
     private void jBtnCExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCExcluirActionPerformed
@@ -423,7 +477,6 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jMenuICListarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuICListarActionPerformed
     {//GEN-HEADEREND:event_jMenuICListarActionPerformed
-        jDialogCategoria.setLocationRelativeTo(null);
         jDialogCategoria.setVisible(true);
     }//GEN-LAST:event_jMenuICListarActionPerformed
 
@@ -436,7 +489,7 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jMenuICExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuICExcluirActionPerformed
     {//GEN-HEADEREND:event_jMenuICExcluirActionPerformed
-        // TODO add your handling code here:
+        jDialogCategoria.setVisible(true);
     }//GEN-LAST:event_jMenuICExcluirActionPerformed
 
     private void jMenuIQExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuIQExcluirActionPerformed
@@ -456,8 +509,39 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jDialogInserirCategoriaWindowActivated(java.awt.event.WindowEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaWindowActivated
     {//GEN-HEADEREND:event_jDialogInserirCategoriaWindowActivated
-        jDialogInserirCategoria.setLocationRelativeTo(null);
+        System.out.println("»»»WindowActivated");
+        jTFCIcat.requestDefaultFocus();
     }//GEN-LAST:event_jDialogInserirCategoriaWindowActivated
+
+    private void jBtnCIcancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCIcancelActionPerformed
+    {//GEN-HEADEREND:event_jBtnCIcancelActionPerformed
+        jDialogInserirCategoria.setVisible(false);
+    }//GEN-LAST:event_jBtnCIcancelActionPerformed
+
+    private void jDialogInserirCategoriaWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaWindowGainedFocus
+    {//GEN-HEADEREND:event_jDialogInserirCategoriaWindowGainedFocus
+        System.out.println("»»»WindowGainedFocus");// TODO add your handling code here:
+    }//GEN-LAST:event_jDialogInserirCategoriaWindowGainedFocus
+
+    private void jDialogInserirCategoriaFocusGained(java.awt.event.FocusEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaFocusGained
+    {//GEN-HEADEREND:event_jDialogInserirCategoriaFocusGained
+        System.out.println("»»»FocusGained");// TODO add your handling code here:
+    }//GEN-LAST:event_jDialogInserirCategoriaFocusGained
+
+    private void jDialogInserirCategoriaWindowOpened(java.awt.event.WindowEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaWindowOpened
+    {//GEN-HEADEREND:event_jDialogInserirCategoriaWindowOpened
+        System.out.println("»»»WindowOpened");// TODO add your handling code here:
+    }//GEN-LAST:event_jDialogInserirCategoriaWindowOpened
+
+    private void jDialogInserirCategoriaWindowStateChanged(java.awt.event.WindowEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaWindowStateChanged
+    {//GEN-HEADEREND:event_jDialogInserirCategoriaWindowStateChanged
+        System.out.println("WindowStateChanged");// TODO add your handling code here:
+    }//GEN-LAST:event_jDialogInserirCategoriaWindowStateChanged
+
+    private void jDialogInserirCategoriaComponentShown(java.awt.event.ComponentEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaComponentShown
+    {//GEN-HEADEREND:event_jDialogInserirCategoriaComponentShown
+        System.out.println("ComponentShown");
+    }//GEN-LAST:event_jDialogInserirCategoriaComponentShown
 
     /**
      * @param args the command line arguments
@@ -499,9 +583,9 @@ public class MainFrame extends javax.swing.JFrame
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCExcluir;
+    private javax.swing.JButton jBtnCIcancel;
+    private javax.swing.JButton jBtnCIsalvar;
     private javax.swing.JButton jBtnCNovo;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JDialog jDialogCategoria;
     private javax.swing.JDialog jDialogInserirCategoria;
@@ -526,7 +610,7 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTFCIcat;
     private javax.swing.JTable jTableCategoria;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
