@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  */
 public class CategoriaDAO
 {
+
     Connection connection;//Variável conexão com BD
     String message = "";
 
@@ -67,6 +68,25 @@ public class CategoriaDAO
             Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, e);
         }
         return null;
+    }
+
+    public void inserir(Categoria cat)
+    {
+
+        String sql = "INSERT INTO categoria"
+                + "(categoria)"
+                + "VALUES (?)";
+
+        try {
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setString(1, cat.getCategoria());
+                stmt.execute();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
 }

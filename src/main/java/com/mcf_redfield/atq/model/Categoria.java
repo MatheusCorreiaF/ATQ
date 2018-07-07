@@ -23,8 +23,8 @@ public class Categoria
 
     public Categoria()
     {
-         this.idCat = 111;
-        this.categoria = "teeeeeste";
+        this.idCat = 0;
+        this.categoria = null;
     }
 
     public int getIdCat()
