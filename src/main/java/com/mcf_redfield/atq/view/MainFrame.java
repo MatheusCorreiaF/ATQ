@@ -7,8 +7,10 @@ package com.mcf_redfield.atq.view;
 
 import com.mcf_redfield.atq.fabrica.CategoriaDAO;
 import com.mcf_redfield.atq.model.Categoria;
+import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -40,21 +42,22 @@ public class MainFrame extends javax.swing.JFrame
     public void LoadTable()
     {
         listaCat = (ArrayList<Categoria>) catDAO.listaCategoria();
-        
+
         Object Colunas[] = {"ID", "Nome"};
         DefaultTableModel modelo = new DefaultTableModel(Colunas, 0);
 
-        for (int i = 0; i < listaCat.size(); i++)
-        {
+        for (int i = 0; i < listaCat.size(); i++) {
             Object linha[] = new Object[]{listaCat.get(i).getIdCat(),
-                                          listaCat.get(i).getCategoria()};
-            
+                listaCat.get(i).getCategoria()};
             System.out.println("»»»" + listaCat.get(i).getCategoria());
-            
+
             modelo.addRow(linha);
         }
         jTableCategoria.setModel(modelo);
+        jTableCategoria.getColumnModel().getColumn(0).setPreferredWidth(20);
+        jTableCategoria.getColumnModel().getColumn(1).setPreferredWidth(280);
         System.out.println("");
+
     }
 
     /**
@@ -76,8 +79,8 @@ public class MainFrame extends javax.swing.JFrame
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabelQNome = new javax.swing.JLabel();
-        jLabelQQtde = new javax.swing.JLabel();
+        jLabelCNome = new javax.swing.JLabel();
+        jLabelCQtde = new javax.swing.JLabel();
         System.out.println("»»»préCriação");
         jDialogInserirCategoria = new javax.swing.JDialog();
         System.out.println("»»»pósCriação");
@@ -100,6 +103,8 @@ public class MainFrame extends javax.swing.JFrame
         jMenuSair = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
+        jDialogCategoria.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        jDialogCategoria.setTitle("Categoria");
         jDialogCategoria.setModal(true);
         jDialogCategoria.setResizable(false);
         jDialogCategoria.setSize(new java.awt.Dimension(420, 360));
@@ -151,12 +156,20 @@ public class MainFrame extends javax.swing.JFrame
                 return canEdit [columnIndex];
             }
         });
+        jTableCategoria.setName(""); // NOI18N
+        jTableCategoria.addMouseListener(new java.awt.event.MouseAdapter()
+        {
+            public void mouseClicked(java.awt.event.MouseEvent evt)
+            {
+                jTableCategoriaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableCategoria);
         if (jTableCategoria.getColumnModel().getColumnCount() > 0)
         {
             jTableCategoria.getColumnModel().getColumn(0).setResizable(false);
-            jTableCategoria.getColumnModel().getColumn(0).setPreferredWidth(30);
-            jTableCategoria.getColumnModel().getColumn(1).setPreferredWidth(100);
+            jTableCategoria.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTableCategoria.getColumnModel().getColumn(1).setPreferredWidth(280);
         }
 
         jBtnCNovo.setMnemonic('n');
@@ -185,11 +198,11 @@ public class MainFrame extends javax.swing.JFrame
 
         jLabel2.setText("Nº de Questões Associadas:");
 
-        jLabelQNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelQNome.setText("Teeste");
+        jLabelCNome.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelCNome.setText("Teeste");
 
-        jLabelQQtde.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabelQQtde.setText("TeesteQtde");
+        jLabelCQtde.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelCQtde.setText("TeesteQtde");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -201,8 +214,8 @@ public class MainFrame extends javax.swing.JFrame
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelQQtde, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
-                    .addComponent(jLabelQNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabelCQtde, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE)
+                    .addComponent(jLabelCNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -210,11 +223,11 @@ public class MainFrame extends javax.swing.JFrame
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabelQNome))
+                    .addComponent(jLabelCNome))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jLabelQQtde)))
+                    .addComponent(jLabelCQtde)))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -310,6 +323,10 @@ public class MainFrame extends javax.swing.JFrame
             public void windowActivated(java.awt.event.WindowEvent evt)
             {
                 jDialogInserirCategoriaWindowActivated(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt)
+            {
+                jDialogInserirCategoriaWindowClosed(evt);
             }
             public void windowOpened(java.awt.event.WindowEvent evt)
             {
@@ -523,13 +540,21 @@ public class MainFrame extends javax.swing.JFrame
 
     private void jBtnCExcluirActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCExcluirActionPerformed
     {//GEN-HEADEREND:event_jBtnCExcluirActionPerformed
-        CategoriaDAO catDAO = new CategoriaDAO();
-        List listaCat = catDAO.listaCategoria();
-        String categoriass = "";
-        for (int i = 0; i < listaCat.size(); i++) {
-            categoriass = categoriass + listaCat.get(i).toString() + "\n";
+
+        int opt = JOptionPane.showConfirmDialog(
+                null, "Excluir a Categoria irá excluir as questões associadas.", "Atenção!", 2);
+        if (opt == JOptionPane.YES_OPTION)
+        {            
+            System.out.println("»««»»«»«" + jTableCategoria.getSelectedRow());
+            try {
+                catDAO.excluir(listaCat.get(jTableCategoria.getSelectedRow()));
+            } catch (SQLException ex) {
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            LoadTable();
+            jLabelCNome.setText("");
+            jLabelCQtde.setText("");
         }
-        JOptionPane.showMessageDialog(rootPane, categoriass);
     }//GEN-LAST:event_jBtnCExcluirActionPerformed
 
     private void jMenuICListarActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jMenuICListarActionPerformed
@@ -572,6 +597,7 @@ public class MainFrame extends javax.swing.JFrame
     private void jBtnCIcancelActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jBtnCIcancelActionPerformed
     {//GEN-HEADEREND:event_jBtnCIcancelActionPerformed
         jDialogInserirCategoria.setVisible(false);
+        jTFCIcat.setText("");
     }//GEN-LAST:event_jBtnCIcancelActionPerformed
 
     private void jDialogInserirCategoriaWindowGainedFocus(java.awt.event.WindowEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaWindowGainedFocus
@@ -607,12 +633,25 @@ public class MainFrame extends javax.swing.JFrame
         catDAO.inserir(cat);
         LoadTable();
         jDialogInserirCategoria.setVisible(false);
+        jTFCIcat.setText("");
     }//GEN-LAST:event_jBtnCIsalvarActionPerformed
 
     private void jDialogInserirCategoriaComponentRemoved(java.awt.event.ContainerEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaComponentRemoved
     {//GEN-HEADEREND:event_jDialogInserirCategoriaComponentRemoved
         System.out.println("»»»ComponentRemoved");// TODO add your handling code here:
     }//GEN-LAST:event_jDialogInserirCategoriaComponentRemoved
+
+    private void jDialogInserirCategoriaWindowClosed(java.awt.event.WindowEvent evt)//GEN-FIRST:event_jDialogInserirCategoriaWindowClosed
+    {//GEN-HEADEREND:event_jDialogInserirCategoriaWindowClosed
+        jTFCIcat.setText("");
+    }//GEN-LAST:event_jDialogInserirCategoriaWindowClosed
+
+    private void jTableCategoriaMouseClicked(java.awt.event.MouseEvent evt)//GEN-FIRST:event_jTableCategoriaMouseClicked
+    {//GEN-HEADEREND:event_jTableCategoriaMouseClicked
+        System.out.println("»‼↕ " + jTableCategoria.getSelectedRow());
+        jLabelCNome.setText(listaCat.get(jTableCategoria.getSelectedRow()).getCategoria());
+        jLabelCQtde.setText("" + listaCat.get(jTableCategoria.getSelectedRow()).getQtdeQ());
+    }//GEN-LAST:event_jTableCategoriaMouseClicked
 
     /**
      * @param args the command line arguments
@@ -663,8 +702,8 @@ public class MainFrame extends javax.swing.JFrame
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelQNome;
-    private javax.swing.JLabel jLabelQQtde;
+    private javax.swing.JLabel jLabelCNome;
+    private javax.swing.JLabel jLabelCQtde;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuCat;
     private javax.swing.JMenuItem jMenuICExcluir;

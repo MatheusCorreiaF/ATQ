@@ -47,7 +47,8 @@ public class CategoriaDAO
 
     public List<Categoria> listaCategoria()
     {
-        String sql = "select * from categoria";
+        //String sql = "SELECT c.id, c.categoria FROM categoria as c";
+        String sql = "SELECT c.id, c.categoria , COUNT(questao)as qtdeQ FROM questao q, categoria c where c.id=q.id_cat GROUP BY q.id_cat";
 
         try {
             List<Categoria> listaCat = new ArrayList<>();
@@ -59,6 +60,7 @@ public class CategoriaDAO
                     Categoria cat = new Categoria();
                     cat.setIdCat(rs.getInt("id"));
                     cat.setCategoria(rs.getString("categoria"));
+                    cat.setQtdeQ(rs.getInt("qtdeQ"));
                     listaCat.add(cat);
                 }
             }
@@ -89,6 +91,20 @@ public class CategoriaDAO
 
     }
 
+    public void excluir(Categoria cat) throws SQLException
+    {
+
+        String sql = "DELETE FROM categoria WHERE id=? ";
+        try {
+            try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+                stmt.setInt(1, cat.getIdCat());
+                stmt.execute();
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(CategoriaDAO.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+    
 }
 
 /**
@@ -112,24 +128,7 @@ public class CategoriaDAO
  * }
  * return false; }
  *
- * public boolean verificaEmail(Cliente cliente) {
  *
- * PreparedStatement pst; ResultSet rs;
- *
- * String sql = "select * from cliente where email = ?";
- *
- * try { pst = connection.prepareStatement(sql); pst.setString(1,
- * cliente.getEmail()); rs = pst.executeQuery();
- *
- * if (rs.next()) { message = "**Cpf ou e-mail já cadastrado!!"; return true; }
- * else {
- *
- * return false; }
- *
- * } catch (SQLException error) {
- *
- * }
- * return false; }
  *
  * public boolean verificaCpf(Cliente cliente) {
  *

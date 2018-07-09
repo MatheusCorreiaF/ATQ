@@ -14,15 +14,18 @@ public class Categoria
 
     private int idCat;
     private String categoria;
+    private int qtdeQ;
 
     public Categoria(int idCat, String categoria)
     {
+        this.qtdeQ = 0;
         this.idCat = idCat;
         this.categoria = categoria;
     }
 
     public Categoria()
     {
+        this.qtdeQ = 0;
         this.idCat = 0;
         this.categoria = null;
     }
@@ -46,4 +49,15 @@ public class Categoria
     {
         this.categoria = categoria;
     }
+
+    public int getQtdeQ()
+    {
+        return qtdeQ;
+    }
+
+    public void setQtdeQ(int qtdeQ)
+    {
+        this.qtdeQ = qtdeQ;
+    }
+
 }
